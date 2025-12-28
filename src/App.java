@@ -315,15 +315,20 @@ public class App {
     static void limparTela() {
         //TODO 25: Implementar método conforme explicação    
         try {
+            //Aqui identificamos o sistema operacional
             String os = System.getProperty("os.name").toLowerCase();
             ProcessBuilder pb;
             if (os.contains("windows") || os.contains("win") || os.contains("dos")) {
+                //identificamos que é windows
                 pb = new ProcessBuilder("cmd", "/c", "cls");
             } else {
+                //identificamos que é mac ou linux
                 pb = new ProcessBuilder("clear");
             }
+            //Executamos o comando para limpar a tela
             pb.inheritIO().start().waitFor();
         } catch (IOException | InterruptedException e) {
+            //Se der algum erro, apenas imprimimos várias linhas em branco
             System.out.println("\n\n\n\n\n\n\n\n\n\n");
         }    
     }
