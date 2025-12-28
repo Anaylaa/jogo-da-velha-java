@@ -1,4 +1,5 @@
-import java.util.Random;
+import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class App {
@@ -14,7 +15,7 @@ public class App {
     final static int TAMANHO_TABULEIRO = 3;
 
     static char[][] tabuleiro = new char[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
-    
+    static int tamanho = TAMANHO_TABULEIRO;
     static Scanner teclado = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -74,7 +75,7 @@ public class App {
         
             //TODO 09: Este if deve executar apenas se o jogo continua E 
             //ocorreu tempate. Utilize o metodo teveEmpate()
-            if ( /*escreva aqui a condicao conforme o TODO acima*/ ) {
+            if (teveEmpate()) {
                 exibirTabuleiro();
                 exibirEmpate();
                 jogoContinua = false;
@@ -227,6 +228,9 @@ public class App {
      */
     static void processarVezUsuario(char caractereUsuario) {
         //TODO 17: Implementar método conforme explicação
+        System.out.println("Sua vez!");
+        int[] jogadaUsuario = obterJogadaUsuario(retornarPosicoesLivres(), teclado);
+        atualizaTabuleiro(jogadaUsuario, caractereUsuario);
     }
 
     /*
@@ -314,7 +318,19 @@ public class App {
      * Nível de complexidade: 3 de 10
      */
     static void limparTela() {
-        //TODO 25: Implementar método conforme explicação        
+        //TODO 25: Implementar método conforme explicação    
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+            ProcessBuilder pb;
+            if (os.contains("windows") || os.contains("win") || os.contains("dos")) {
+                pb = new ProcessBuilder("cmd", "/c", "cls");
+            } else {
+                pb = new ProcessBuilder("clear");
+            }
+            pb.inheritIO().start().waitFor();
+        } catch (IOException | InterruptedException e) {
+            System.out.println("\n\n\n\n\n\n\n\n\n\n");
+        }    
     }
 
     /*
@@ -329,6 +345,46 @@ public class App {
         //TODO 26: Implementar método conforme explicação
         // execute no início deste método a chamada ao método limparTela
         // para garantir que seja exibido o tabuleiro sem nenhum conteúdo antes dele.
+        limparTela();
+        // Aqui é o Cabeçalho
+        System.out.print("  ");
+        for (int col = 0; col < tamanho; col++) {
+            System.out.print((col + 1));
+            if (col < tamanho - 1) {
+                System.out.print("   ");
+            }
+        }
+
+        System.out.println();
+
+        // Cada entrada nesse for será uma linha do tabuleiro
+        for (int linha = 0; linha < tamanho; linha++) {
+            //Aqui vai o numero de cada linha
+            System.out.print((linha + 1) + " ");
+
+            for (int col = 0; col < tamanho; col++) {
+                char valor = tabuleiro[linha][col];
+                System.out.print(valor == '\0' ? ' ' : valor);
+
+                if (col < tamanho - 1) {
+                    System.out.print(" | ");
+                }
+            }
+            System.out.println();
+            // Linha separadora (exceto após a última linha)
+            if (linha < tamanho - 1) {
+                for (int i = 0; i < tamanho; i++) {
+                    if (i == 0) {
+                        System.out.print(" ");
+                    }
+                    System.out.print("---");
+                    if (i < tamanho - 1) {
+                        System.out.print("+");
+                    }
+                }
+                System.out.println();
+            }
+        }
     }
 
     /*
@@ -391,7 +447,7 @@ public class App {
      */
     static boolean teveEmpate() {
         //TODO 31: Implementar método conforme explicação
-
+        return Objects.equals(retornarPosicoesLivres(), "");
     }
 
     /*
