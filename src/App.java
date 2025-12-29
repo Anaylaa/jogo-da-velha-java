@@ -1,5 +1,6 @@
 import java.util.Random;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class App {
     // Estes caracteres são aceitos como caracteres para representarem
@@ -199,8 +200,26 @@ public class App {
      * e nem para tentar ganhar.
      * Nível de complexidade: 6 de 10
      */
-    static int[] obterJogadaComputador(String posicoesLivres, Scanner teclado) {
-        //TODO 15: Implementar método conforme explicação
+    static int[] obterJogadaComputador(String posicoesLivres) {
+        String[] posicoesLivresListaString;
+        String jogadaSorteada;
+        int posSorteada;
+        int[] jogadaSorteadaInt;
+
+        Random random = new Random();
+
+        // cada posição livre se torna um elemento da lista
+        posicoesLivresListaString = posicoesLivres.split(";");
+
+        // sorteia uma posição de 0 à quantidade de posições livres - 1
+        posSorteada = random.nextInt(posicoesLivresListaString.length);
+
+        jogadaSorteada = posicoesLivresListaString[posSorteada];
+        
+        // converte jogada no formato xy para [x, y] com x e y sendo inteiros
+        jogadaSorteadaInt = converterJogadaStringParaVetorInt(jogadaSorteada);
+
+        return jogadaSorteadaInt;
     }
 
     /*
@@ -212,6 +231,7 @@ public class App {
      * return.
      * Nível de complexidade: 4 de 10
      */
+    
     static int[] converterJogadaStringParaVetorInt(String jogada) {
         //TODO 16: Implementar método conforme explicação
     }
@@ -241,7 +261,14 @@ public class App {
      * Nível de complexidade: 10 de 10 se o computador for jogar para ganhar
      */
     static void processarVezComputador(char caractereComputador) {
-        //TODO 18: Implementar método conforme explicação
+        int[] jogadaComputador;
+        String posicoesLivres;
+
+        posicoesLivres = retornarPosicoesLivres();
+
+        jogadaComputador = obterJogadaComputador(posicoesLivres);
+
+        atualizaTabuleiro(jogadaComputador, caractereComputador);
     }
 
     /*
@@ -403,7 +430,9 @@ public class App {
      * Nível de complexidade: 3 de 10
      */
     static boolean sortearValorBooleano() {
-        //TODO 32: Implementar método conforme explicação
+        Random random = new Random();
+
+        return random.nextBoolean();
     }
 
 
