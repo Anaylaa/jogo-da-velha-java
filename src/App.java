@@ -86,7 +86,7 @@ public class App {
 
         } while (jogarNovamente);
 
-        System.out.println("Até mais! Obrigado por jogar =)");
+        System.out.println("Até mais! Obrigado por jogar =");
         teclado.close();
     }
 
@@ -145,10 +145,12 @@ public class App {
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
                 System.out.print(" " + tabuleiro[i][j] + " ");
-                if (j < tamanho - 1) System.out.print("|");
+                if (j < tamanho - 1)
+                    System.out.print("|");
             }
             System.out.println();
-            if (i < tamanho - 1) System.out.println("---+---+---");
+            if (i < tamanho - 1)
+                System.out.println("---+---+---");
         }
         System.out.println();
     }
@@ -187,7 +189,8 @@ public class App {
             tabuleiro[j[0]][j[1]] = c;
             boolean ganhou = teveGanhador(c);
             tabuleiro[j[0]][j[1]] = ' ';
-            if (ganhou) return j;
+            if (ganhou)
+                return j;
         }
         return null;
     }
@@ -200,7 +203,8 @@ public class App {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tamanho; i++) {
             for (int j = 0; j < tamanho; j++) {
-                if (tabuleiro[i][j] == ' ') sb.append(i).append(j).append(";");
+                if (tabuleiro[i][j] == ' ')
+                    sb.append(i).append(j).append(";");
             }
         }
         return sb.toString();
@@ -211,15 +215,16 @@ public class App {
             System.out.print("Digite linha e coluna (ex: 1 1): ");
             int l = teclado.nextInt() - 1;
             int c = teclado.nextInt() - 1;
-            if (livres.contains("" + l + c)) return new int[]{l, c};
+            if (livres.contains("" + l + c))
+                return new int[] { l, c };
             System.out.println("Jogada inválida!");
         }
     }
 
     static int[] converterJogadaStringParaVetorInt(String j) {
-        return new int[]{
-            Character.getNumericValue(j.charAt(0)),
-            Character.getNumericValue(j.charAt(1))
+        return new int[] {
+                Character.getNumericValue(j.charAt(0)),
+                Character.getNumericValue(j.charAt(1))
         };
     }
 
@@ -229,11 +234,13 @@ public class App {
 
     static boolean teveGanhador(char c) {
         for (int i = 0; i < tamanho; i++) {
-            if (tabuleiro[i][0] == c && tabuleiro[i][1] == c && tabuleiro[i][2] == c) return true;
-            if (tabuleiro[0][i] == c && tabuleiro[1][i] == c && tabuleiro[2][i] == c) return true;
+            if (tabuleiro[i][0] == c && tabuleiro[i][1] == c && tabuleiro[i][2] == c)
+                return true;
+            if (tabuleiro[0][i] == c && tabuleiro[1][i] == c && tabuleiro[2][i] == c)
+                return true;
         }
         return (tabuleiro[0][0] == c && tabuleiro[1][1] == c && tabuleiro[2][2] == c) ||
-               (tabuleiro[0][2] == c && tabuleiro[1][1] == c && tabuleiro[2][0] == c);
+                (tabuleiro[0][2] == c && tabuleiro[1][1] == c && tabuleiro[2][0] == c);
     }
 
     static char obterCaractereUsuario() {
@@ -260,9 +267,12 @@ public class App {
         System.out.println("Computador: " + c);
         System.out.println("Empates: " + e);
 
-        if (u > c) System.out.println("Vencedor do torneio: Usuário!");
-        else if (c > u) System.out.println("Vencedor do torneio: Computador!");
-        else System.out.println("O torneio terminou empatado!");
+        if (u > c)
+            System.out.println("Vencedor do torneio: Usuário!");
+        else if (c > u)
+            System.out.println("Vencedor do torneio: Computador!");
+        else
+            System.out.println("O torneio terminou empatado!");
     }
 
     static boolean perguntarJogarNovamente() {
